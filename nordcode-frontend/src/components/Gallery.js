@@ -1,53 +1,54 @@
 import React, {Component} from 'react';
 import {Row, Col, Card} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import {BASE_URL} from '../constants';
+import Pagination from "./Pagination";
+import UploadForm from "./UploadForm";
 
 class Gallery extends Component {
   render() {
+    const {images} = this.props;
+    let renderGallery = () => {
+      if (images !== null) {
+        return images.data.map(function(image, i) {
+          return (<Col xs="6" lg="4" key={i}>
+            <Card>
+              <Card.Img variant="top"
+                        src={BASE_URL+image.link}/>
+              <Card.Body>
+                <Card.Title>{image.title}</Card.Title>
+                <Link to={"/image/"+image.id} className="btn btn-primary">View</Link>
+              </Card.Body>
+            </Card>
+          </Col>)
+        })
+      }
+    };
+
+    let renderPagination = () => {
+      if (images !== null) {
+        let pageInformation = {
+          "nextPageUrl": images.next_page_url,
+          "prevPageUrl": images.prev_page_url,
+          "currentPage": images.current_page,
+          "lastPage": images.last_page
+        };
+        return (<div>
+          {images.next_page_url === null && images.prev_page_url === null ? null : <Pagination pageInformation={pageInformation}/>}
+        </div>);
+      }
+    };
+
     return (
       <div>
+        <UploadForm/>
+        <Row style={{"height": "2rem"}}/>
         <Row>
-          <Col xs lg="4">
-            <Card>
-              <Card.Img variant="top"
-                        src="https://cdn.pixabay.com/photo/2019/10/25/10/13/sunflower-4576573_960_720.jpg"/>
-              <Card.Body>
-                <Card.Title>Image Title</Card.Title>
-                <Link to="/image/1" className="btn btn-primary">View</Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs lg="4">
-            <Card>
-              <Card.Img variant="top"
-                        src="https://cdn.pixabay.com/photo/2019/10/25/10/13/sunflower-4576573_960_720.jpg"/>
-              <Card.Body>
-                <Card.Title>Image Title</Card.Title>
-                <Link to="/image/1" className="btn btn-primary">View</Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs lg="4">
-            <Card>
-              <Card.Img variant="top"
-                        src="https://cdn.pixabay.com/photo/2019/10/25/10/13/sunflower-4576573_960_720.jpg"/>
-              <Card.Body>
-                <Card.Title>Image Title</Card.Title>
-                <Link to="/image/1" className="btn btn-primary">View</Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs lg="4">
-            <Card>
-              <Card.Img variant="top"
-                        src="https://cdn.pixabay.com/photo/2019/10/25/10/13/sunflower-4576573_960_720.jpg"/>
-              <Card.Body>
-                <Card.Title>Image Title</Card.Title>
-                <Link to="/image/1" className="btn btn-primary">View</Link>
-              </Card.Body>
-            </Card>
-          </Col>
+          {renderGallery()}
         </Row>
+        <Row style={{"height": "2rem"}}/>
+        {renderPagination()}
+        <Row style={{"height": "5rem"}}/>
       </div>
     );
   }

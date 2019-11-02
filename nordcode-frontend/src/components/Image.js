@@ -1,22 +1,44 @@
 import React, {Component} from 'react';
 import {Card, Col, Container, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import axios from "axios";
+import {API_PATH, BASE_URL} from "../constants";
+import Header from "./Header";
 
 class Image extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      image: null
+    }
+  }
+
+  async componentDidMount() {
+    const id = this.props.match.params.id;
+    let response = await axios.get(BASE_URL + API_PATH + '/images/'+id);
+    this.setState({image: response.data});
+  }
+
   render() {
+    const {image} = this.state;
+    let renderImage = () => {
+      if (image !== null) {
+        return (<Card className="text-center">
+          <Card.Body>
+            <Card.Title>{image.title}</Card.Title>
+          </Card.Body>
+          <Card.Img variant="top"
+                    src={BASE_URL+this.state.image.link}/>
+        </Card>)
+      }
+    };
+
     return (
-      <div>
+      <div className="App">
         <Container>
+          <Header/>
           <Row>
-            <Col xs md={{span: 6, offset: 1}}>
-              <Card style={{"width": "50rem"}}>
-                <Card.Img variant="top"
-                          src="https://cdn.pixabay.com/photo/2019/10/25/10/13/sunflower-4576573_960_720.jpg"/>
-                <Card.Body>
-                  <Card.Title>Image Title</Card.Title>
-                  <Link to="/" className="btn btn-danger">Delete</Link>
-                </Card.Body>
-              </Card>
+            <Col xs={{span: "8", offset: "2"}} lg={{span: "8", offset: "2"}}>
+              {renderImage()}
             </Col>
           </Row>
         </Container>

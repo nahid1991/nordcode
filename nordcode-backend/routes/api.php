@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +13,7 @@ use Illuminate\Http\Request;
 */
 
 Route::namespace('api')->group(function () {
-    Route::prefix('v1')->namespace('v1')->group(function() {
+    Route::prefix('v1')->namespace('V1')->group(function() {
         include_once 'api/v1/v1.php';
     });
 });
