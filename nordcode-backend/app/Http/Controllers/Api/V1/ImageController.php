@@ -17,7 +17,6 @@ class ImageController extends Controller
     }
 
     public function create(ImageCreateRequest $request) {
-        echo($request);
         return response()->json($this->imageService->create($request));
     }
 
