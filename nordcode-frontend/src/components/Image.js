@@ -20,8 +20,10 @@ class Image extends Component {
 
   render() {
     const {image} = this.state;
+
     let renderImage = () => {
       if (image !== null) {
+        document.title = image.title;
         return (<Card className="text-center">
           <Card.Body>
             <Card.Title>{image.title}</Card.Title>
