@@ -12,7 +12,7 @@
 |
 */
 
-Route::namespace('api')->group(function () {
+Route::namespace('Api')->group(function () {
     Route::prefix('v1')->namespace('V1')->group(function() {
         include_once 'api/v1/v1.php';
     });
