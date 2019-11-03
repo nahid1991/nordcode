@@ -11,4 +11,6 @@
 |
 */
 
-//Route::view('{path?}', 'index');
+Route::get('/', function() {
+    echo("server is running!");
+});
