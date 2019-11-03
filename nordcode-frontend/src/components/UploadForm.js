@@ -40,10 +40,12 @@ class UploadForm extends Component {
     axios.post(BASE_URL+API_PATH+'/images/upload', data).then((response) => {
       if (response.status === 200) {
         window.location.href = "/";
+      }
+    }).catch((err) => {
+      if(err.response.status === 422) {
+        alert(err.response.data.errors.title[0]);
       } else {
-        console.log(response.status);
-        console.error(response);
-        alert("Oops! Guess we messed something up.");
+        alert("something in the backend went wrong!");
       }
     });
   };
