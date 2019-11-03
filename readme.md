@@ -64,14 +64,14 @@ Your <code>.env</code> should look like this.<code>
       MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 </code></p>
 <h3>Step 4:</h3>
-<p>Run <code>composer install</code> to install all the packages for the project. Then run 
+<p>Run <code>composer install</code> to install all the packages for the project. 
+Run <code>php artisan key:generate</code> to generate the application key. Then run 
 <code>php artisan migrate</code> to migrate the database. Then run <code>php artisan serve</code>.
 And that should start the backend project in the 8000 port in the local machine.</p>
 <h3>Step 5:</h3>
 <p>Run <code>php artisan storage:link</code> to link the <code>public/storage</code> with the 
 <code>storage</code> directory in order to make the uploaded images show up.</p>
-<p><b>PS: if you do not have key generated then run <code>php artisan key:generate</code> 
-to generate the key. And also if you face <code>PDOException</code> error then you have to install 
+<p><b>PS: If you face <code>PDOException</code> error then you have to install 
 <code>php7.2-sqlite</code> by running <code>sudo apt-get install php7.2-sqlite</code> in the terminal.</b></p>
 
 <h2>Installation for frontend (Depends on the backend for data)</h2>
